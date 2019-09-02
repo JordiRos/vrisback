@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Virtual Reality is back</title>
+	<style>body{margin:0}</style>
+</head>
+<body>
+<script src="https://threejs.org/build/three.min.js"></script>
+<script>THREE.WEBVR={createButton:function(e,t){function n(t){l.style.display="",l.style.cursor="pointer",l.style.left="calc(50% - 50px)",l.style.width="100px",l.textContent="ENTER VR",l.onmouseenter=function(){l.style.opacity="1.0"},l.onmouseleave=function(){l.style.opacity="0.5"},l.onclick=function(){t.isPresenting?t.exitPresent():t.requestPresent([{source:e.domElement}])},e.vr.setDevice(t)}function s(){l.style.display="",l.style.cursor="auto",l.style.left="calc(50% - 75px)",l.style.width="150px",l.onmouseenter=null,l.onmouseleave=null,l.onclick=null,l.textContent="NO VR",e.vr.setDevice(null)}function o(e){e.style.position="absolute",e.style.bottom="20px",e.style.padding="12px 6px",e.style.border="1px solid #fff",e.style.borderRadius="4px",e.style.background="rgba(0,0,0,0.1)",e.style.color="#fff",e.style.font="normal 13px sans-serif",e.style.textAlign="center",e.style.opacity="0.5",e.style.outline="none",e.style.zIndex="999"}if(t&&t.referenceSpaceType&&e.vr.setReferenceSpaceType(t.referenceSpaceType),"getVRDisplays"in navigator){var l=document.createElement("button");return l.style.display="none",o(l),window.addEventListener("vrdisplayconnect",function(e){n(e.display)},!1),window.addEventListener("vrdisplaydisconnect",function(){s()},!1),window.addEventListener("vrdisplaypresentchange",function(e){l.textContent=e.display.isPresenting?"EXIT":"VR"},!1),window.addEventListener("vrdisplayactivate",function(t){t.display.requestPresent([{source:e.domElement}])},!1),navigator.getVRDisplays().then(function(e){e.length>0?n(e[0]):s()}).catch(s),l}var i=document.createElement("a");return i.href="https://webvr.info",i.innerHTML="NO WEBVR",i.style.left="calc(50% - 90px)",i.style.width="180px",i.style.textDecoration="none",o(i),i}};</script>
+<script>function SfxrParams(){this.setSettings=function(r){for(var a=0;a<24;a++)this[String.fromCharCode(97+a)]=r[a]||0;this.c<.01&&(this.c=.01);var t=this.b+this.c+this.e;if(t<.18){var e=.18/t;this.b*=e,this.c*=e,this.e*=e}}}function SfxrSynth(){var r,a,t,e,s,n,i,h,f,c,o,v;this._params=new SfxrParams,this.reset=function(){var r=this._params;e=100/(r.f*r.f+.001),s=100/(r.g*r.g+.001),n=1-r.h*r.h*r.h*.01,i=-r.i*r.i*r.i*1e-6,r.a||(o=.5-r.n/2,v=5e-5*-r.o),h=1+r.l*r.l*(r.l>0?-.9:10),f=0,c=1==r.m?0:(1-r.m)*(1-r.m)*2e4+32},this.totalReset=function(){this.reset();var e=this._params;return r=e.b*e.b*1e5,a=e.c*e.c*1e5,t=e.e*e.e*1e5+12,3*((r+a+t)/3|0)},this.synthWave=function(u,b){var w=this._params,m=1!=w.s||w.v,y=w.v*w.v*.1,g=1+3e-4*w.w,k=w.s*w.s*w.s*.1,S=1+1e-4*w.t,l=1!=w.s,p=w.x*w.x,d=w.g,x=w.q||w.r,A=w.r*w.r*w.r*.2,q=w.q*w.q*(w.q<0?-1020:1020),M=w.p?32+((1-w.p)*(1-w.p)*2e4|0):0,_=w.d,U=w.j/2,j=w.k*w.k*.01,C=w.a,P=r,R=1/r,W=1/a,z=1/t,B=5/(1+w.u*w.u*20)*(.01+k);B>.8&&(B=.8),B=1-B;for(var D,E,F,G,H,I,J=!1,K=0,L=0,N=0,O=0,Q=0,T=0,V=0,X=0,Y=0,Z=0,$=new Array(1024),rr=new Array(32),ar=$.length;ar--;)$[ar]=0;for(ar=rr.length;ar--;)rr[ar]=2*Math.random()-1;for(ar=0;ar<b;ar++){if(J)return ar;if(M&&++Y>=M&&(Y=0,this.reset()),c&&++f>=c&&(c=0,e*=h),(e*=n+=i)>s&&(e=s,d>0&&(J=!0)),E=e,U>0&&(Z+=j,E*=1+Math.sin(Z)*U),(E|=0)<8&&(E=8),C||((o+=v)<0?o=0:o>.5&&(o=.5)),++L>P)switch(L=0,++K){case 1:P=a;break;case 2:P=t}switch(K){case 0:N=L*R;break;case 1:N=1+2*(1-L*W)*_;break;case 2:N=1-L*z;break;case 3:N=0,J=!0}x&&((F=0|(q+=A))<0?F=-F:F>1023&&(F=1023)),m&&g&&((y*=g)<1e-5?y=1e-5:y>.1&&(y=.1)),I=0;for(var tr=8;tr--;){if(++V>=E&&(V%=E,3==C))for(var er=rr.length;er--;)rr[er]=2*Math.random()-1;switch(C){case 0:H=V/E<o?.5:-.5;break;case 1:H=1-V/E*2;break;case 2:H=.225*(((H=1.27323954*(G=6.28318531*((G=V/E)>.5?G-1:G))+.405284735*G*G*(G<0?1:-1))<0?-1:1)*H*H-H)+H;break;case 3:H=rr[Math.abs(32*V/E|0)]}m&&(D=T,(k*=S)<0?k=0:k>.1&&(k=.1),l?(Q+=(H-T)*k,Q*=B):(T=H,Q=0),O+=(T+=Q)-D,H=O*=1-y),x&&($[X%1024]=H,H+=$[(X-F+1024)%1024],X++),I+=H}I*=.125*N*p,u[ar]=I>=1?32767:I<=-1?-32768:32767*I|0}return b}}var synth=new SfxrSynth;window.jsfxr=function(r){synth._params.setSettings(r);var a=synth.totalReset(),t=new Uint8Array(4*((a+1)/2|0)+44),e=2*synth.synthWave(new Uint16Array(t.buffer,44),a),s=new Uint32Array(t.buffer,0,44);s[0]=1179011410,s[1]=e+36,s[2]=1163280727,s[3]=544501094,s[4]=16,s[5]=65537,s[6]=44100,s[7]=88200,s[8]=1048578,s[9]=1635017060,s[10]=e,e+=44;for(var n=0,i="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/",h="data:audio/wav;base64,";n<e;n+=3){var f=t[n]<<16|t[n+1]<<8|t[n+2];h+=i[f>>18]+i[f>>12&63]+i[f>>6&63]+i[63&f]}return h};</script>
+<script>
+	// THREE
+	var dv = document.createElement('div'),
+		re = new THREE.WebGLRenderer({ antialias: true }),
+		e = re.domElement,
+		c1, c2,
+		a, b, c, f, g, l, m, n, o, p, s, t, u, v, w, x, y, z, i, j, k;
+	re.setPixelRatio(window.devicePixelRatio);
+	re.setSize(window.innerWidth, window.innerHeight);
+	re.vr.enabled = true;
+	dv.appendChild(e);
+	document.body.appendChild(dv);    
+  	window.addEventListener('resize', () => {
+		ca.aspect = window.innerWidth / window.innerHeight;
+		ca.updateProjectionMatrix();
+		re.setSize(window.innerWidth, window.innerHeight);
+  	}, false);
+  	window.addEventListener('vrdisplaypointerrestricted', () => {
+		if (e && typeof (e.requestPointerLock) === 'function') {
+			e.requestPointerLock();
+		}
+	}, false);
+	window.addEventListener('vrdisplaypointerunrestricted', () => {
+		p = document.pointerLockElement;
+		if (p && p === e && typeof (document.exitPointerLock) === 'function') {
+			document.exitPointerLock();
+		}
+	}, false);
+	document.body.appendChild(THREE.WEBVR.createButton(re));
+
+	//=======================================================================================================================================
+	var sndSta = jsfxr([0,,.097,.536,.467,.528,,,,,,.543,.641,,,,,,1,,,,,.3]),
+		sndLow = jsfxr([3,,.368,.203,.184,.133,,-.397,,,,,,,,,.426,-.116,1,,,,,.3]),
+		sndMed = jsfxr([3,,.385,.505,.329,.116,,-.241,,,,,,,,,,,1,,,,,.3]),
+		sndHig = jsfxr([3,,.311,.798,.399,.126,,.215,,,,,,,,,,,1,,,,,.3]),
+		sndMul = jsfxr([1,,.086,.4,.312,.466,,.484,,,,,,,,.659,,,1,,,,,.4]),
+		sndMis = jsfxr([3,.9,.2,.163,.223,.5,0,.8,.55,.1,0,-.7,-.65,.5,.4,.4,-.75,.4,.8,-.5,.8,.45,-.35,.4]);
+	function ply(snd) {
+		var player = new Audio();
+		player.src = snd;
+		player.play();
+		player.addEventListener('ended', function(e) {
+			url.revokeObjectURL(player.src);
+		}, false);
+	}
+
+	//=======================================================================================================================================
+	var seed = function(s) {
+		return function(n,m) {
+			s = Math.sin(s) * 10000; return (Math.sin(s) * .5 + .5) * (m-n) + n;
+		}
+	};
+	function rnd(n,m) {
+		return lerp(Math.random(),n,m);
+	}
+	function lerp(v,n,m) {
+		return (m-n)*(Math.min(Math.max(v,0),1))+n;
+	}
+	function rot(v,x,y,z) {
+        var c = Math.cos(a), s = Math.sin(a);
+        return new THREE.Vector3(c*x-s*z,y,s*x+c*z);
+	}
+	function centroid(v,s) {
+    	c = new THREE.Vector3(0, 0, 0);
+    	for (p of v) {
+      		c.x+= p.x;
+      		c.y+= p.y;
+      		c.z+= p.z;
+		}
+		s/=length;
+    	c.x*= s;
+    	c.y*= s;
+    	c.z*= s;
+    	return c;
+	}	
+
+	// solid+wireframe edges geometry
+  	function geom(g,p) {
+		if (p.c) {
+			m = new THREE.MeshPhongMaterial({
+				color: p.c,
+				flatShading: true,
+				polygonOffset: false,
+				polygonOffsetFactor: .1,
+				polygonOffsetUnits: .1,
+			});
+			o = new THREE.Mesh(g, m);
+			if (p.w) {
+				o.wire = new THREE.LineSegments(new THREE.EdgesGeometry(g), new THREE.LineBasicMaterial({ color: p.w, linewidth: 2 }));
+				o.add(o.wire);
+			}
+		}
+		else {
+			o = new THREE.LineSegments(new THREE.EdgesGeometry(g), new THREE.LineBasicMaterial({ color: p.w, linewidth: 2 }));
+		}
+		if (p.x!==undefined) o.position.set(p.x,p.y,p.z);
+		if (p.i!==undefined) o.rotation.set(p.i,p.j,p.k);
+		return o;
+  	}
+
+  	function cube(s,p) {
+	  	return geom(new THREE.CubeGeometry(s,s,s),p);
+  	}
+
+	// 80s!
+	function logo() {
+		var can = document.createElement('canvas'),
+			ctx = can.getContext('2d');
+		can.width = 1024;
+		can.height = 256;
+		ctx.shadowBlur = 10;
+		ctx.shadowColor = "black";
+		ctx.shadowOffsetX = 3;
+		ctx.shadowOffsetY = 3;
+		// VIRTUAL REALITY
+		g = ctx.createLinearGradient(0, 0, 0, can.height);
+		g.addColorStop(.09, "#40c4c9");
+		g.addColorStop(.16, "#ffffff");
+		g.addColorStop(.17, "#444444");
+		g.addColorStop(.25, "#f157cb");
+		g.addColorStop(.27, "#fbc3ff");
+		ctx.font = "Bold 72px Verdana";
+		ctx.strokeStyle = "white";
+		ctx.fillStyle = g;
+		ctx.lineWidth = 3;
+		t = "VIRTUAL REALITY";
+		ctx.strokeText(t,135,70);
+		ctx.fillText(t,135,70);
+		// is back
+		ctx.rotate(-.25);
+		g = ctx.createLinearGradient(0, 0, can.width*2.2, can.height*3);
+		g.addColorStop(.51, "#ffffff");
+		g.addColorStop(.62, "#ffffff");
+		ctx.font = "72px Courier New";
+		ctx.fillStyle = g;
+		ctx.strokeStyle = "black";
+		ctx.lineWidth = 3;
+		ctx.textDecoration = "underline overline";
+		ctx.strokeText("is back", 640, 300);
+		ctx.fillText("is back", 640, 300);
+		t = new THREE.Texture(can);
+		t.needsUpdate = true;
+		o = new THREE.Mesh(new THREE.PlaneGeometry(7,1.75, 1,1), new THREE.MeshBasicMaterial({ map: t, transparent: true }));
+		return o;
+	}
+
+	// create sprite text
+	function stini(w,h,s,f) {
+		var can = document.createElement('canvas'),
+			ctx = can.getContext('2d');
+		can.width = w;
+		can.height = h;
+		ctx.font = f;
+		ctx.strokeStyle = "black";
+		ctx.textAlign = "center";
+		ctx.fillStyle = "white";
+		//ctx.lineWidth = 2;
+		ctx.shadowBlur = 5;
+		ctx.shadowColor = "black";
+		ctx.shadowOffsetX = 1;
+		ctx.shadowOffsetY = 1;		
+		t = new THREE.Texture(can);
+		o = new THREE.Mesh(new THREE.PlaneGeometry(w/128,h/128, 1,1), new THREE.MeshBasicMaterial({ map: t, transparent: true }));
+		o.can = can;
+		o.ctx = ctx;
+		o.tex = t;
+		o.siz = s;
+		return o;
+	}
+
+	function stset(o,t) {
+		o.ctx.clearRect(0,0,o.can.width,o.can.height);
+		//o.ctx.strokeText(t,o.can.width/2,o.can.height*.8);
+		o.ctx.fillText(t,o.can.width/2,o.can.height*.8);
+		o.tex.needsUpdate = true;
+	}
+
+	function pincheit(g) {
+		var fa = [],
+			ve = [],
+			co = [],
+			uv = [];
+    	for (i = 0; i < g.faces.length; i++) {
+      		n = ve.length;
+      		f = g.faces[i];
+      		var va = g.vertices[f.a],
+	      		vb = g.vertices[f.b],
+      			vc = g.vertices[f.c];
+      		ve.push(va.clone(), vb.clone(), vc.clone(), centroid([va, vb, vc],(i*3%4)==0?2.5:1));
+      		f.a = n;
+      		f.b = n + 1;
+      		f.c = n + 2;
+      		var f1 = new THREE.Face3().copy(f),
+      		f2 = new THREE.Face3().copy(f),
+      		f3 = new THREE.Face3().copy(f);
+			f1.a = n + 3;
+			f2.b = n + 3;
+			f3.c = n + 3;
+			fa.push(f1,f2,f3);
+			w = [g.faceVertexUvs[0][i][0], g.faceVertexUvs[0][i][1], g.faceVertexUvs[0][i][2]];
+			uv.push(w,w,w);
+		}
+		g.vertices = ve;
+		g.vertices[ve.length-1] = new THREE.Vector3(0, 0, 0);
+		g.faces = fa;
+		g.faceVertexUvs[0] = uv;
+		return g;
+	}
+
+	function pinchos() {
+		var ob = new THREE.Object3D();
+		// stick
+		o = geom(new THREE.CylinderBufferGeometry(.01, .01, .4, 7, 4), { c: 0x106469, w: 0x205459 });
+		o.position.set(0,.06,0);
+		o.updateMatrix();
+		ob.add(o);
+		// ball
+		o = geom(pincheit(new THREE.IcosahedronGeometry(.08, 1)), { c: 0x20a4a9, w: 0x409499 });
+		o.position.set(0,.35,0);
+		o.updateMatrix();
+		o.geometry.computeVertexNormals();
+		ob.add(o);
+		ob.rotation.set(-.8,0,0);
+		ob.pivot = o;
+		return ob;
+	}
+
+	function dist(a,b) { 
+  		x = a.x-b.x; 
+  		y = a.y-b.y; 
+  		z = a.z-b.z; 
+  		return Math.sqrt(x*x+y*y+z*z); 
+	}
+
+	function avgvel() {
+		var p = {};
+		p.v = [];
+		p.i = 0;
+		for (i = 0; i < 20; i++) p.v.push(0);
+		p.add = (v) => {
+			var vel = 0;
+			if (p.old)
+				vel = Math.abs(p.old.set(v.x-p.old.x,v.y-p.old.y,v.z-p.old.z).length());
+			else
+				p.old = new THREE.Vector3();
+			p.old.set(v.x,v.y,v.z);
+			p.v[p.i] = vel;
+			p.i = (p.i+1)%20;
+			p.vel = 0;
+			for (i = 0; i < 20; i++) p.vel+= p.v[i];
+			p.vel*=5;
+		};
+		return p;
+	}
+
+	function onSta() {
+		this.userData.isSelecting = true;
+	}
+	function onEnd() {
+		this.userData.isSelecting = false;
+	}
+	function controllers() {
+		var o1 = pinchos(),
+			o2 = pinchos();
+		c1 = re.vr.getController(0);
+		c1.userData.id = 0;
+		c1.pivot = o1.pivot;
+		c1.pos = new THREE.Vector3();
+		c1.avgvel = avgvel();
+		c1.addEventListener('selectstart', onSta);
+		c1.addEventListener('selectend', onEnd);
+		c1.add(o1);
+		sc.add(c1);
+		c2 = re.vr.getController(1);
+		c2.userData.id = 1;
+		c2.pivot = o2.pivot;
+		c2.pos = new THREE.Vector3();
+		c2.avgvel = avgvel();
+		c2.addEventListener('selectstart', onSta);
+		c2.addEventListener('selectend', onEnd);
+		c2.add(o2);
+		sc.add(c2);
+	}
+
+	//=======================================================================================================================================
+	// scene
+	var cl = new THREE.Clock(),
+  	  	sc = new THREE.Scene(),
+  		ca = new THREE.PerspectiveCamera(90, window.innerWidth / window.innerHeight, .1, 10000)
+  	sc.background = new THREE.Color(0x2f234b);
+  	sc.add(ca);
+
+	// lighting
+  	l = new THREE.HemisphereLight(0xffffff,0x1f133b,1.5);
+  	l.position.set(0,.2,-1).normalize();
+  	sc.add(l);
+
+	// gradient sun
+	g = new THREE.IcosahedronBufferGeometry(200, 3);
+	var ga = g.attributes,
+		gp = ga.position;
+	g.addAttribute('color', new THREE.BufferAttribute(new Float32Array(gp.count*3),3));
+	for (i = 0; i < gp.count; i++) ga.color.setXYZ(i,1,gp.getY(i)/200+.7,.5);
+	o = new THREE.Mesh(g, new THREE.MeshBasicMaterial({ vertexColors: THREE.VertexColors }));
+	o.position.set(0,150,-1000);
+	sc.add(o);
+
+	// background light
+	g = new THREE.BoxBufferGeometry(5000,300,5);
+	ga = g.attributes;
+	gp = ga.position;
+	g.addAttribute('color', new THREE.BufferAttribute(new Float32Array(gp.count*3),3));
+	for (i = 0; i < gp.count; i++) {
+		y = (gp.getY(i)/300)+.7;
+		ga.color.setXYZ(i,lerp(y,1,.18),lerp(y,.04,.14),lerp(y,.5,.30));
+	}
+	o = new THREE.Mesh(g, new THREE.MeshBasicMaterial({ vertexColors: THREE.VertexColors }));
+	o.position.set(0,100,-1000);
+	sc.add(o);	
+
+  	// grid
+  	var ve = [],
+  		co = [],
+  		vf = [],
+  		py = [];
+  	for (i = 0; i <= 100; i++) {
+	  	for (j = 0; j < 100; j++) {
+  			py.push(rnd(0,2)-20+Math.cos(i/20+.6)*30+(100-j)/2+Math.cos(i/4.7)*1.5+Math.cos(j/3.5)*2);
+			//py.push(-25);
+  		}
+  	}
+  	for (i = 30; i < 70; i++) {
+	  	for (j = 20; j < 60; j++) {
+			k = j+i*100;
+			y = py[k];
+			s = py[k+1];
+			t = py[k+100];
+			u = py[k+101];
+			n = i*15-750;
+			m = j*15-750;
+			w = (1-m)/400+.3;
+			ve.push(n, y, m); ve.push(n, s, m+15);
+			co.push(w,.1,(.8-w/4)); co.push(w,.1,(.8-w/4));
+			ve.push(n, y, m); ve.push(n+15, t, m);
+			co.push(w,.1,(.8-w/4)); co.push(w,.1,(.8-w/4));
+			// solid
+			vf.push(n, y-.1, m); vf.push(n, s-.1, m+15); vf.push(n+15, u-.1, m+15);
+			vf.push(n, y-.1, m); vf.push(n+15, u-.1, m+15); vf.push(n+15, t-.1, m);
+		}
+	}
+
+	// wireframe
+	g = new THREE.BufferGeometry();
+	g.addAttribute('position', new THREE.Float32BufferAttribute(ve, 3));
+	g.addAttribute('color', new THREE.Float32BufferAttribute(co, 3));
+	g.v = ve;	
+	g.c = co;
+	o = new THREE.LineSegments(g, new THREE.LineBasicMaterial({ vertexColors: THREE.VertexColors }));
+	sc.add(o);
+	// solid
+	g = new THREE.BufferGeometry();
+	g.addAttribute('position', new THREE.Float32BufferAttribute(vf, 3));
+	o = new THREE.Mesh(g, new THREE.MeshLambertMaterial({ flatShading: true }));
+	sc.add(o);
+
+	// cubeees
+	var ob = new THREE.Geometry(),
+		ornd = seed(5);
+	n = 150;
+  	for (i = 0; i < n; i++) {
+		w = 500;
+		k = -w+(i*w*2/n)
+		j = Math.abs(k)
+		s = ornd(25,35+Math.abs(k)/10);
+		z = ornd(-400,-650)+j/2;
+		o = new THREE.Mesh(new THREE.CubeGeometry(s,s,s));
+		o.position.set(k,ornd(0,40)+j/4-z/5-160,z);
+		o.rotation.set(0,ornd(.2,5),ornd(2,2.5));
+		o.updateMatrix();
+		ob.merge(o.geometry,o.matrix);
+  	}
+  	sc.add(geom(new THREE.BufferGeometry().fromGeometry(ob), { c: 0x2f234b, w: 0xf23c8a }));
+
+	// logo
+	var stlog = logo();
+	stlog.position.set(0,3.7,-6);
+	sc.add(stlog);
+
+	// press button to start
+	var stinf = stini(512,64,40,"20px Courier New");
+	stinf.position.set(0,.2,-6);
+	sc.add(stinf);
+	//stset(stinf,"A WebVR game by @jordi_ros");
+
+	// press button to start
+	var ststa = stini(512,64,40,"40px Tahoma");
+	ststa.position.set(0,2.2,-6);
+	sc.add(ststa);
+	stset(ststa,"Press any button to start");
+
+	// score
+	var stsco = stini(512,64,40,"Bold 40px Tahoma");
+	stsco.position.set(-3.,2.7,-6);
+	stsco.rotation.set(0,.6,0);
+	sc.add(stsco);
+	var stend = stini(512,64,48,"Bold 48px Tahoma");
+	stend.position.set(0,2.7,-6);
+	sc.add(stend);
+
+	// multi
+	var stmul = stini(512,64,32,"32px Tahoma");
+	stmul.position.set(-3.,2.4,-5.9);
+	stmul.rotation.set(0,.6,0);
+	sc.add(stmul);
+
+	// miss
+	var stmis = stini(512,64,40,"Bold 40px Tahoma");
+	stmis.position.set(3.,2.7,-6);
+	stmis.rotation.set(0,-.6,0);
+	sc.add(stmis);
+	stset(stmis,"MISS!");
+
+	// debug
+	var stdeb = stini(512,64,40,"30px Tahoma");
+	stdeb.position.set(3,2.1,-6);
+	sc.add(stdeb);
+	stset(stdeb,"DEBUG");
+	stdeb.visible = false;
+
+	// controllers
+	if (false) {
+		o = pinchos();
+		o.position.set(.25,.35,-.5);
+		sc.add(o);
+	}
+	else {
+		controllers();
+	}
+
+	//=======================================================================================================================================
+  	// game
+	var cobj = [], pobj = [], pexp = [],
+		life, diff, score, multi, tmulti, tmiss, addtime,
+		time = 0, de = 0, state = 0;
+	for (i = 0; i < 80; i++) {
+		ob = cube(.3,{ c: 0x20a4a9, w: 0x20a4a9 });
+		pobj.push(ob);
+		sc.add(ob);
+		ob.visible = false;
+	}
+	for (i = 0; i < 300; i++) {
+		ob = cube(1,{ c: 1, w: 1 });
+		pexp.push(ob);
+		sc.add(ob);
+		ob.visible = false;
+	}
+	function cadd() {
+		ob = null;
+		for (i = 0; i < pobj.length; i++) {
+			if (!pobj[i].visible) {
+				ob = pobj[i];
+				ob.visible = true;
+				break;
+			}
+		}
+		if (!ob) return;
+		a = rnd(-.4,.4);
+		v = rot(a,rnd(-1,1)*lerp(diff,.9,1.2),rnd(1,2.2),lerp(diff,-30,-18));
+		ob.position.set(v.x,v.y,v.z);
+		ob.vel = rot(a,0,0,lerp(diff,12,25));
+		ob.tposy = 0;
+		ob.posy = v.y;
+		sc.add(ob);
+		cobj.push(ob);
+	}
+	function cexp(ob,vel,con) {
+		if (state == 1) {
+			// game vars
+			life = Math.min(1,life+(vel>.8?.05:vel>.5?0.02:0.01));
+			score+= Math.floor(vel>.8?150*vel:100*vel)*Math.floor(multi)*10;
+			m = Math.min(8,multi+(vel*.25));
+			if (Math.floor(m)>Math.floor(multi)) {
+				tmulti = time;
+				ply(sndMul);
+			}
+			multi = m;
+			ply(vel>.8?sndHig:vel>.5?sndMed:sndLow);
+		}
+		// explosion
+		p = ob.position;
+		n = Math.floor(vel>.8?15:vel>.5?8:3);
+		cdel(ob);
+		for (j = 0; j < n; j++) {
+			ob = null;
+			for (i = 0; i < pexp.length; i++) {
+				if (!pexp[i].visible) {
+					ob = pexp[i];
+					ob.visile = true;
+					break;
+				}
+			}
+			if (!ob) return;
+			s = rnd(lerp(vel,.35,.08),lerp(vel,.4,.13));
+			ob.position.set(p.x,p.y,p.z);
+			ob.scale.set(s,s,s);
+			ob.sc = s;
+			ob.sd = rnd(.7,1.3);
+			ob.sx = rnd(-4,4)*lerp(vel,.2,1);
+			ob.sz = rnd(-12,-4)*lerp(vel,.4,1);
+			ob.sy = rnd(-3,5)*lerp(vel,.2,1);
+			ob.vel = vel;
+			ob.visible = true;
+			cobj.push(ob);
+		}
+	}
+	function cmis(ob) {
+		if (state == 1) {
+			life -= .15;
+			tmiss = time;
+			tmulti = multi>=2?time:-1;
+			multi = 1;
+			ply(sndMis);
+		}
+		cdel(ob);
+	}
+	function cdel(ob) {
+		cobj.splice(cobj.indexOf(ob), 1);
+		ob.visible = false;
+	}
+	function cupd() {
+    	// update cubes	
+    	for (o of cobj) {
+			o.tposy += de * 2;
+			if (o.sx === undefined) {
+				o.rotation.z+= de*1.26;
+				o.rotation.x+= de*.78;
+				o.rotation.y+= de*1.92;
+				o.position.x+= de*o.vel.x;
+				o.position.y = lerp(Math.pow(o.tposy*1.5,2),-1,o.posy);
+				o.position.z+= de*o.vel.z;
+				if (state == 1) {
+					var vel = 0, con;
+					if (c1 && c2) {
+						if (dist(o.position,c1.pos)<.6) {
+							vel = Math.min(c1.avgvel.vel,10)/10;
+							con = c1;
+						}
+						if (dist(o.position,c2.pos)<.6) {
+							vel = Math.min(c2.avgvel.vel,10)/10;
+							con = c2;
+						}
+					}
+					else {
+						// debug
+						if (o.position.z>-3) {
+							if (rnd(0,1)<lerp(diff,.95,.3)) {
+								vel = rnd(.05,1);
+							}
+							else {
+								cmis(o);
+							}
+						}
+					}
+					if (vel > 0) {
+						cexp(o,vel,con);
+					}
+				}
+				if (o.position.z > 1) {
+					cmis(o);
+				}					
+			}
+			else {
+				s = o.sd*o.sc;
+				o.rotation.z+= de*1.76;
+				o.rotation.x+= de*2.18;
+				o.rotation.y+= de*2.42;				
+				o.position.x+= de*o.sx;
+				o.position.y+= de*o.sy;
+				o.position.z+= de*o.sz;
+				o.scale.set(s,s,s);
+				s = Math.pow(o.sd,4);
+				var r1 = 1,
+					g1 = .05,
+					b1 = .5,
+					r2 = o.vel>.8?1:.14,
+					g2 = o.vel>.8?1:.74,
+					b2 = o.vel>.8?1:.76;
+				f = o.vel>.8?1.2:.7;
+				v = o.vel>.8?1.2:1;
+				o.material.color.setRGB(lerp(s,r1,r2)*f,lerp(s,g1,g2)*f,lerp(s,b1,b2)*f);
+				o.wire.material.color.setRGB(lerp(s,r1,r2)*v,lerp(s,g1,g2)*v,lerp(s,b1,b2)*v);
+				o.sy-= de * 9.8;
+				o.sd-= de;
+				if (o.sd < .1) {
+					cdel(o);
+				}
+    		}
+		}
+
+	}
+
+	//=======================================================================================================================================
+  	// loops	
+	function menu() {
+		stlog.visible = true;
+		ststa.visible = true;
+		stinf.visible = true;
+		stend.visible = false;
+		stsco.visible = false;
+		stmul.visible = false;
+		stmis.visible = false;
+		ststa.material.opacity = .6+Math.sin(new Date().getTime()*.005)*.4;
+		// start game
+		if ((c1 && c1.userData.isSelecting) || (c2 && c2.userData.isSelecting) || (!c1 && !c2 && time > 5)) {
+			time = 0;
+			state = 1;
+			life = .5;
+			diff = 0;
+			score = 0;
+			multi = 1;
+			tmulti = -1;
+			tmiss = -1;
+			addtime = 1;
+			stlog.visible = false;
+			ststa.visible = false;
+			stinf.visible = false;
+			ply(sndSta);
+		}
+	}
+
+	function game() {
+		// text
+		stsco.visible = true;
+		stset(stsco,score);
+		stmul.visible = true;
+		stset(stmul,"x"+Math.floor(multi));
+		s = lerp((time-tmulti)*3,1.5,1);
+		stmul.scale.set(s,s,s);
+		stmis.visible = time-tmiss<1;
+		stmis.material.opacity = lerp((time-tmiss-.5)*2,1,0);
+		s = lerp((time-tmiss)*3,1.5,1);
+		stmis.scale.set(s,s,s);
+		addtime+= de;
+		diff = Math.min(1,time/120);
+		// add new cubes
+    	if (addtime > 0) {
+	    	cadd();
+			//addtime = rnd(lerp(diff,-.4,-.2),lerp(diff,-1,-.35));
+			addtime = -2;
+    	}
+		// avgvel
+		if (c1 && c2) {
+			if (c1.pivot.getWorldPosition(c1.pos)) c1.avgvel.add(c1.pos);
+			if (c2.pivot.getWorldPosition(c2.pos)) c2.avgvel.add(c2.pos);
+			stset(stdeb,Math.floor(c1.avgvel.vel*100)/100 + " ^ " + Math.floor(c2.avgvel.vel*100)/100 + " diff: " + Math.floor(diff*100) + " life: " + Math.floor(life*100));
+		}
+		else {
+			stset(stdeb," diff: " + Math.floor(diff*100) + " life: " + Math.floor(life*100));
+		}
+		// update cubes
+		cupd();
+		// end game
+		if (life < 0) {
+			state = 2;
+			time = 0;
+		}		
+	}
+	
+	function end() {
+		stlog.visible = false;
+		ststa.visible = true;
+		stend.visible = true;
+		stsco.visible = false;
+		stmul.visible = false;
+		stmis.visible = false;
+		ststa.material.opacity = 1;
+		stset(ststa,"GAME OVER");
+		stset(stend,score);
+		cupd();
+		if ((c1 && c1.userData.isSelecting) || (c2 && c2.userData.isSelecting) || (!c1 && !c2 && time > 5)) {
+			state = 0;
+		}
+	}
+
+	function loop() {
+		//stats.msStart();
+		de = Math.min(cl.getDelta(), .05);
+		time+= de;
+		switch (state) {
+		case 0: menu(); break;
+		case 1: game(); break;
+		case 2: end(); break;
+		}
+		//stats.msEnd();
+		//stats.update();
+		re.render(sc, ca);
+	}
+
+	//var stats = new StatsVR(sc, ca);
+	re.setAnimationLoop(loop);
+</script>
+</body>
+</html>
