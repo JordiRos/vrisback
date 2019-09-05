@@ -14,7 +14,9 @@
 		re = new THREE.WebGLRenderer({ antialias: true }),
 		e = re.domElement,
 		c1, c2,
-		a, b, c, f, g, l, m, n, o, p, s, t, u, v, w, x, y, z, i, j, k;
+		a, b, c, f, g, l, m, n, o, p, s, t, u, v, w, x, y, z, i, j, k,
+		sin = Math.sin, cos = Math.cos, floor = Math.floor, min = Math.min, max = Math.max, sqrt = Math.sqrt, abs = Math.abs, pow = Math.pow;
+
 	re.setPixelRatio(window.devicePixelRatio);
 	re.setSize(window.innerWidth, window.innerHeight);
 	re.vr.enabled = true;
@@ -57,17 +59,17 @@
 	//=======================================================================================================================================
 	var seed = function(s) {
 		return function(n,m) {
-			s = Math.sin(s) * 10000; return (Math.sin(s) * .5 + .5) * (m-n) + n;
+			s = sin(s) * 10000; return (sin(s) * .5 + .5) * (m-n) + n;
 		}
 	};
 	function rnd(n,m) {
 		return lerp(Math.random(),n,m);
 	}
 	function lerp(v,n,m) {
-		return (m-n)*(Math.min(Math.max(v,0),1))+n;
+		return (m-n)*(min(max(v,0),1))+n;
 	}
 	function rot(v,x,y,z) {
-        var c = Math.cos(a), s = Math.sin(a);
+        var c = cos(a), s = sin(a);
         return new THREE.Vector3(c*x-s*z,y,s*x+c*z);
 	}
 	function centroid(v,s) {
@@ -77,7 +79,7 @@
       		c.y+= p.y;
       		c.z+= p.z;
 		}
-		s/=length;
+		s/=v.length;
     	c.x*= s;
     	c.y*= s;
     	c.z*= s;
@@ -180,7 +182,6 @@
 
 	function stset(o,t) {
 		o.ctx.clearRect(0,0,o.can.width,o.can.height);
-		//o.ctx.strokeText(t,o.can.width/2,o.can.height*.8);
 		o.ctx.fillText(t,o.can.width/2,o.can.height*.8);
 		o.tex.needsUpdate = true;
 	}
@@ -201,8 +202,8 @@
       		f.b = n + 1;
       		f.c = n + 2;
       		var f1 = new THREE.Face3().copy(f),
-      		f2 = new THREE.Face3().copy(f),
-      		f3 = new THREE.Face3().copy(f);
+	      		f2 = new THREE.Face3().copy(f),
+      			f3 = new THREE.Face3().copy(f);
 			f1.a = n + 3;
 			f2.b = n + 3;
 			f3.c = n + 3;
@@ -220,7 +221,7 @@
 	function pinchos() {
 		var ob = new THREE.Object3D();
 		// stick
-		o = geom(new THREE.CylinderBufferGeometry(.01, .01, .4, 7, 4), { c: 0x106469, w: 0x205459 });
+		o = geom(new THREE.CylinderBufferGeometry(.01, .01, .5, 7, 4), { c: 0x20a4a9, w: 0x409499 });
 		o.position.set(0,.06,0);
 		o.updateMatrix();
 		ob.add(o);
@@ -239,7 +240,7 @@
   		x = a.x-b.x; 
   		y = a.y-b.y; 
   		z = a.z-b.z; 
-  		return Math.sqrt(x*x+y*y+z*z); 
+  		return sqrt(x*x+y*y+z*z); 
 	}
 
 	function avgvel() {
@@ -250,7 +251,7 @@
 		p.add = (v) => {
 			var vel = 0;
 			if (p.old)
-				vel = Math.abs(p.old.set(v.x-p.old.x,v.y-p.old.y,v.z-p.old.z).length());
+				vel = abs(p.old.set(v.x-p.old.x,v.y-p.old.y,v.z-p.old.z).length());
 			else
 				p.old = new THREE.Vector3();
 			p.old.set(v.x,v.y,v.z);
@@ -335,7 +336,7 @@
   		py = [];
   	for (i = 0; i <= 100; i++) {
 	  	for (j = 0; j < 100; j++) {
-  			py.push(rnd(0,2)-20+Math.cos(i/20+.6)*30+(100-j)/2+Math.cos(i/4.7)*1.5+Math.cos(j/3.5)*2);
+  			py.push(rnd(0,2)-20+cos(i/20+.6)*30+(100-j)/2+cos(i/4.7)*1.5+cos(j/3.5)*2);
 			//py.push(-25);
   		}
   	}
@@ -380,8 +381,8 @@
   	for (i = 0; i < n; i++) {
 		w = 500;
 		k = -w+(i*w*2/n)
-		j = Math.abs(k)
-		s = ornd(25,35+Math.abs(k)/10);
+		j = abs(k)
+		s = ornd(25,35+abs(k)/10);
 		z = ornd(-400,-650)+j/2;
 		o = new THREE.Mesh(new THREE.CubeGeometry(s,s,s));
 		o.position.set(k,ornd(0,40)+j/4-z/5-160,z);
@@ -390,6 +391,21 @@
 		ob.merge(o.geometry,o.matrix);
   	}
   	sc.add(geom(new THREE.BufferGeometry().fromGeometry(ob), { c: 0x2f234b, w: 0xf23c8a }));
+
+	// starfield
+	g = new THREE.Geometry();
+	for (i = 0; i < 4000; i++) {
+		r = 1000;
+		a = rnd(0,3.14*2);
+		b = rnd(0,3.14*2);
+		v = new THREE.Vector3(r*cos(a)*sin(b), r*sin(a)*sin(b), r*cos(b));
+		g.vertices.push(v);
+	}
+	ob  = new THREE.Points(g, new THREE.PointsMaterial({ size: 0.1, color: 0xcccccc }));
+	sc.add(ob);
+
+	// controllers
+	controllers();	
 
 	// logo
 	var stlog = logo();
@@ -400,13 +416,13 @@
 	var stinf = stini(512,64,40,"20px Courier New");
 	stinf.position.set(0,.2,-6);
 	sc.add(stinf);
-	//stset(stinf,"A WebVR game by @jordi_ros");
+	stset(stinf,"A 8k WebVR game by @jordi_ros");
 
 	// press button to start
 	var ststa = stini(512,64,40,"40px Tahoma");
 	ststa.position.set(0,2.2,-6);
 	sc.add(ststa);
-	stset(ststa,"Press any button to start");
+	stset(ststa,"Press trigger to start");
 
 	// score
 	var stsco = stini(512,64,40,"Bold 40px Tahoma");
@@ -436,16 +452,6 @@
 	sc.add(stdeb);
 	stset(stdeb,"DEBUG");
 	stdeb.visible = false;
-
-	// controllers
-	if (false) {
-		o = pinchos();
-		o.position.set(.25,.35,-.5);
-		sc.add(o);
-	}
-	else {
-		controllers();
-	}
 
 	//=======================================================================================================================================
   	// game
@@ -486,10 +492,10 @@
 	function cexp(ob,vel,con) {
 		if (state == 1) {
 			// game vars
-			life = Math.min(1,life+(vel>.8?.05:vel>.5?0.02:0.01));
-			score+= Math.floor(vel>.8?150*vel:100*vel)*Math.floor(multi)*10;
-			m = Math.min(8,multi+(vel*.25));
-			if (Math.floor(m)>Math.floor(multi)) {
+			life = min(1,life+(vel>.8?.05:vel>.5?0.02:0.01));
+			score+= floor(vel>.8?150*vel:100*vel)*floor(multi)*10;
+			m = min(8,multi+(vel*.25));
+			if (floor(m)>floor(multi)) {
 				tmulti = time;
 				ply(sndMul);
 			}
@@ -498,7 +504,7 @@
 		}
 		// explosion
 		p = ob.position;
-		n = Math.floor(vel>.8?15:vel>.5?8:3);
+		n = floor(vel>.8?15:vel>.5?8:3);
 		cdel(ob);
 		for (j = 0; j < n; j++) {
 			ob = null;
@@ -552,11 +558,11 @@
 					var vel = 0, con;
 					if (c1 && c2) {
 						if (dist(o.position,c1.pos)<.6) {
-							vel = Math.min(c1.avgvel.vel,10)/10;
+							vel = min(c1.avgvel.vel,10)/10;
 							con = c1;
 						}
 						if (dist(o.position,c2.pos)<.6) {
-							vel = Math.min(c2.avgvel.vel,10)/10;
+							vel = min(c2.avgvel.vel,10)/10;
 							con = c2;
 						}
 					}
@@ -588,7 +594,7 @@
 				o.position.y+= de*o.sy;
 				o.position.z+= de*o.sz;
 				o.scale.set(s,s,s);
-				s = Math.pow(o.sd,4);
+				s = pow(o.sd,4);
 				var r1 = 1,
 					g1 = .05,
 					b1 = .5,
@@ -619,7 +625,7 @@
 		stsco.visible = false;
 		stmul.visible = false;
 		stmis.visible = false;
-		ststa.material.opacity = .6+Math.sin(new Date().getTime()*.005)*.4;
+		ststa.material.opacity = .6+sin(new Date().getTime()*.005)*.4;
 		// start game
 		if ((c1 && c1.userData.isSelecting) || (c2 && c2.userData.isSelecting) || (!c1 && !c2 && time > 5)) {
 			time = 0;
@@ -643,7 +649,7 @@
 		stsco.visible = true;
 		stset(stsco,score);
 		stmul.visible = true;
-		stset(stmul,"x"+Math.floor(multi));
+		stset(stmul,"x"+floor(multi));
 		s = lerp((time-tmulti)*3,1.5,1);
 		stmul.scale.set(s,s,s);
 		stmis.visible = time-tmiss<1;
@@ -651,21 +657,20 @@
 		s = lerp((time-tmiss)*3,1.5,1);
 		stmis.scale.set(s,s,s);
 		addtime+= de;
-		diff = Math.min(1,time/120);
+		diff = min(1,time/120);
 		// add new cubes
     	if (addtime > 0) {
 	    	cadd();
-			//addtime = rnd(lerp(diff,-.4,-.2),lerp(diff,-1,-.35));
-			addtime = -2;
+			addtime = rnd(lerp(diff,-.4,-.2),lerp(diff,-1,-.35));
     	}
 		// avgvel
 		if (c1 && c2) {
 			if (c1.pivot.getWorldPosition(c1.pos)) c1.avgvel.add(c1.pos);
 			if (c2.pivot.getWorldPosition(c2.pos)) c2.avgvel.add(c2.pos);
-			stset(stdeb,Math.floor(c1.avgvel.vel*100)/100 + " ^ " + Math.floor(c2.avgvel.vel*100)/100 + " diff: " + Math.floor(diff*100) + " life: " + Math.floor(life*100));
+			stset(stdeb,floor(c1.avgvel.vel*100)/100 + " ^ " + floor(c2.avgvel.vel*100)/100 + " diff: " + floor(diff*100) + " life: " + floor(life*100));
 		}
 		else {
-			stset(stdeb," diff: " + Math.floor(diff*100) + " life: " + Math.floor(life*100));
+			stset(stdeb," diff: " + floor(diff*100) + " life: " + floor(life*100));
 		}
 		// update cubes
 		cupd();
@@ -694,7 +699,7 @@
 
 	function loop() {
 		//stats.msStart();
-		de = Math.min(cl.getDelta(), .05);
+		de = min(cl.getDelta(), .05);
 		time+= de;
 		switch (state) {
 		case 0: menu(); break;
