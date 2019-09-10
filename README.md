@@ -8,7 +8,7 @@ Game is based on a simpler Beat Saber mechanic where you destroy random cubes as
 
 Tested on Oculus Rift and Oculus Quest, best at room scale with touch controllers.
 
-An 8kb game for js13kgames 2019 https://2019.js13kgames.com
+An 8kb WebVR game for js13kgames 2019 https://2019.js13kgames.com
 
 <b>Used</b> https://threejs.org
 
