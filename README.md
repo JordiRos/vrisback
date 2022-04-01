@@ -4,7 +4,7 @@ And it's full of evil cubes.<br>
 Good news: you got a pair of morning stars to destroy them, it's quite satisfying.<br>
 Bad news: they will keep coming. FOREVER.<br>
 
-Game is based on a simpler Beat Saber mechanic where you destroy random cubes as they approach.
+Game is based on a simpler Beat Saber mechanic where you destroy random cubes as they approach, but without rythm.
 
 Tested on Oculus Rift and Oculus Quest, best at room scale with touch controllers.
 
